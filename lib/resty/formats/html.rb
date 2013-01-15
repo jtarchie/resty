@@ -6,7 +6,11 @@ module Resty
       end
 
       def to_s
-        "<h1>#{resource.to_s}</h1>"
+        if resource.is_a?(Array)
+          resource.map{|r| self.class.new(r).to_s }.join
+        else
+          "<h1>#{resource.to_s}</h1>"
+        end
       end
     end
   end

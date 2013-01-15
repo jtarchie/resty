@@ -19,5 +19,9 @@ module ExampleApp
     def show(params)
       Post.find(params[:id])
     end
+
+    def index(params)
+      [ Post.find(1), Post.find(2), Post.find(3) ]
+    end
   end
 end

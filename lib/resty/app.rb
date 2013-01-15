@@ -1,5 +1,11 @@
 module Resty
-  App = Struct.new(:namespace) do
+  class App
+    attr_reader :namespace
+
+    def initialize(namespace)
+      @namespace = namespace
+    end
+
     def call(env)
       request = Request.new(env)
 
