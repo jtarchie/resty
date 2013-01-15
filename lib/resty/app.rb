@@ -3,17 +3,9 @@ module Resty
     def call(env)
       request = Request.new(env)
 
-      action = request.invoker.new(controller(request), request)
+      action = request.invoker.new(Controller.find_by_request(namespace, request), request)
       body = request.formatter.new(action.resource)
       [action.status, action.headers, body.to_s]
-    end
-
-    private
-
-    def controller(request)
-      controller_path = request.path.match(%r{/(#{CONTROLLER_PATH})})[1]
-      class_name = "#{namespace}::#{controller_path.camelize}Controller"
-      class_name.constantize
     end
   end
 
