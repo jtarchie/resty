@@ -15,5 +15,17 @@ describe "Show a resource" do
       last_response.status.should == 200
       last_response.body.should == '<h1>Post 1</h1><h1>Post 2</h1><h1>Post 3</h1>'
     end
+
+    context "when requesting JSON" do
+      it "returns the output as a JSON array" do
+        get '/posts.json'
+        last_response.status.should == 200
+        JSON.parse(last_response.body).should == [
+          {"post"=>{"body"=>nil, "id"=>1, "title"=>nil}},
+          {"post"=>{"body"=>nil, "id"=>2, "title"=>nil}},
+          {"post"=>{"body"=>nil, "id"=>3, "title"=>nil}}
+        ]
+      end
+    end
   end
 end
