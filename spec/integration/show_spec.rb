@@ -21,6 +21,7 @@ describe "Show a resource" do
       it "defaults to HTML" do
         get '/posts/1'
         last_response.status.should == 200
+        last_response.headers['Content-Type'].should include "text/html"
         last_response.body.should == "<h1>Post 1</h1>"
       end
 
@@ -28,6 +29,7 @@ describe "Show a resource" do
         it "responds to JSON" do
           get '/posts/1.json'
           last_response.status.should == 200
+          last_response.headers['Content-Type'].should include "application/json"
           JSON.parse(last_response.body).should == {
             'id' => "1"
           }
@@ -36,6 +38,7 @@ describe "Show a resource" do
         it "responds to HTML" do
           get '/posts/1.html'
           last_response.status.should == 200
+          last_response.headers['Content-Type'].should include "text/html"
           last_response.body.should == "<h1>Post 1</h1>"
         end
       end

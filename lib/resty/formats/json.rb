@@ -5,8 +5,12 @@ module Resty
         request.path =~ /\.json/
       end
 
-      def to_s
+      def body
         resource.to_json
+      end
+
+      def headers
+        {"Content-type" => "application/json"}
       end
     end
   end

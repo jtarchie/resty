@@ -5,9 +5,9 @@ module Resty
         request.path =~ /\.html$/ || request.path !~ /\.\w+$/
       end
 
-      def to_s
+      def body
         if resource.is_a?(Array)
-          resource.map{|r| self.class.new(r).to_s }.join
+          resource.map{|r| self.class.new(r).body }.join
         else
           "<h1>#{resource.to_s}</h1>"
         end

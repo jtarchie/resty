@@ -9,9 +9,14 @@ module Resty
     def call(env)
       request = Request.new(env)
 
-      action = request.invoker.new(Controller.find_by_request(namespace, request), request)
-      body = request.formatter.new(action.resource)
-      [action.status, action.headers, body.to_s]
+      controller = Controller.find_by_request(namespace, request)
+      action = request.invoker.new(controller, request)
+      output = request.formatter.new(action.resource)
+      [
+        action.status,
+        action.headers.merge(output.headers),
+        output.body
+      ]
     end
   end
 
