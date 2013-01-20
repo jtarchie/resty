@@ -1,5 +1,4 @@
 require "resty/version"
-require "active_support/inflector"
 
 module Resty
   RESOURCE_ID = %r{\d+}

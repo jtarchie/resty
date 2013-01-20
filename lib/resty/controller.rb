@@ -1,3 +1,5 @@
+require "active_support/inflector"
+
 module Resty
   class Controller
     def self.find_by_request(namespace, request)

@@ -1,6 +1,4 @@
 require 'resty/actions/base'
-require 'resty/actions/show'
-require 'resty/actions/index'
 
 module Resty
   module Actions

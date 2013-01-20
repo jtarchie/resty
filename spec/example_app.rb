@@ -1,4 +1,7 @@
 require 'json'
+require 'resty'
+require 'resty/formats/all'
+require 'resty/actions/all'
 
 module ExampleApp
   Post = Struct.new(:attributes) do
