@@ -31,7 +31,11 @@ describe "Show a resource" do
           last_response.status.should == 200
           last_response.headers['Content-Type'].should include "application/json"
           JSON.parse(last_response.body).should == {
-            'id' => "1"
+            "post"=>{
+              "body"=>nil,
+              "id"=>1,
+              "title"=>nil
+            }
           }
         end
 
