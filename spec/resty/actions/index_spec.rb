@@ -27,15 +27,17 @@ describe Resty::Actions::Index do
       context "when the resources exist" do
         let(:resources) { [ double(:resource) ] }
 
-        before { controller.any_instance.should_receive(:index).with({}).and_return(resources) }
+        before { controller.any_instance.stub(:index).with({}).and_return(resources) }
         its(:status) { should == 200 }
         its(:resource) { should == resources }
+        its(:headers) { should == {} }
       end
 
       context "when the resources does not exist" do
-        before { controller.any_instance.should_receive(:index).with({}).and_return([]) }
+        before { controller.any_instance.stub(:index).with({}).and_return([]) }
         its(:status) { should == 200 }
         its(:resource) { should == [] }
+        its(:headers) { should == {} }
       end
     end
 
@@ -43,10 +45,11 @@ describe Resty::Actions::Index do
       context "because the path has a resource id" do
         let(:request) { double(:request, params: {}, path: "/path/1") }
 
-        before { controller.any_instance.should_receive(:index).with({}).and_return(nil) }
+        before { controller.any_instance.stub(:index).with({}).and_return(nil) }
 
         its(:status) { should == 404 }
         its(:resource) { should be_nil }
+        its(:headers) { should == {} }
       end
     end
   end
