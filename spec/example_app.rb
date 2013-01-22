@@ -30,5 +30,9 @@ module ExampleApp
     def index(params)
       [ Post.find(1), Post.find(2), Post.find(3) ]
     end
+
+    def new(params)
+      Post.new
+    end
   end
 end
