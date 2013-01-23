@@ -14,4 +14,14 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = 'random'
+
+  config.before do
+    ExampleApp::Post.create(id: 1)
+    ExampleApp::Post.create(id: 2)
+    ExampleApp::Post.create(id: 3)
+  end
+
+  config.after do
+    ExampleApp::Post.delete_all
+  end
 end

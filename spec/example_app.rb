@@ -12,13 +12,11 @@ module ExampleApp
   end
 
   class Post < ActiveRecord::Base
+    attr_accessible :id
     def to_s
       "Post #{id}"
     end
   end
-  Post.create(id: 1)
-  Post.create(id: 2)
-  Post.create(id: 3)
 
   class PostsController
     def show(params)
