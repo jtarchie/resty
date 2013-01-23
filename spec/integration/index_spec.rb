@@ -2,13 +2,7 @@ require 'spec_helper'
 require 'rack/test'
 require 'example_app'
 
-describe "Show a resource" do
-  include Rack::Test::Methods
-
-  def app
-    Resty::App.new(ExampleApp)
-  end
-
+describe "Show a resource", integration: true do
   context "when the resources exists" do
     it "returns the resources found" do
       get '/posts'
