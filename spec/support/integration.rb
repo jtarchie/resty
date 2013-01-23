@@ -1,4 +1,5 @@
 require 'rack/test'
+require 'example_app'
 
 module IntegrationTest
   include Rack::Test::Methods

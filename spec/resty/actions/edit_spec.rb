@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Resty::Actions::Index do
+describe Resty::Actions::Edit do
   describe "when trying to match against a request" do
     let(:request) { double(:request, path: path) }
 
@@ -10,8 +10,13 @@ describe Resty::Actions::Index do
       before { request.stub(:get?).and_return true }
 
       context "with a valid path" do
-        let(:path) { "/posts" }
+        let(:path) { "/posts/1/edit" }
         it { should be_true }
+      end
+
+      context "with an valid without a resource id" do
+        let(:path) { "/posts/edit" }
+        it { should be_false }
       end
 
       context "with an invalid path" do
@@ -32,31 +37,21 @@ describe Resty::Actions::Index do
     subject { described_class.new(controller, request) }
 
     context "with a valid request object" do
-      let(:request) { double(:request, params: {}, path: "/path") }
+      let(:request) { double(:request, params: {}, path: "/path/123/edit") }
 
-      context "when the resources exist" do
-        let(:resources) { [ double(:resource) ] }
+      context "when the resource exists" do
+        let(:resource) { double(:resource) }
 
-        before { ExampleApp::PostsController.any_instance.stub(:index).with({}).and_return(resources) }
+        before { ExampleApp::PostsController.any_instance.stub(:edit).with({"id" => "123"}).and_return(resource) }
         its(:status) { should == 200 }
-        its(:resource) { should == resources }
+        its(:resource) { should == resource }
         its(:headers) { should == {} }
       end
 
-      context "when the resources does not exist" do
-        before { ExampleApp::PostsController.any_instance.stub(:index).with({}).and_return([]) }
-        its(:status) { should == 200 }
-        its(:resource) { should == [] }
-        its(:headers) { should == {} }
-      end
-    end
+      context "when the resource does not exist" do
+        let(:resource) { nil }
 
-    context "with an invalid request object" do
-      context "because the path has a resource id" do
-        let(:request) { double(:request, params: {}, path: "/path/1") }
-
-        before { ExampleApp::PostsController.any_instance.stub(:index).with({}).and_return(nil) }
-
+        before { ExampleApp::PostsController.any_instance.stub(:edit).with({"id" => "123"}).and_return(resource) }
         its(:status) { should == 404 }
         its(:resource) { should be_nil }
         its(:headers) { should == {} }

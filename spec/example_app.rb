@@ -12,25 +12,44 @@ module ExampleApp
   end
 
   class Post < ActiveRecord::Base
-    attr_accessible :id
+    attr_accessible :id, :title, :body
     def to_s
-      "Post #{id}"
+      "Post #{id || "not persisted"}"
     end
   end
 
   class PostsController
     def show(params)
-      Post.find(params[:id])
+      Post.find(params['id'])
     rescue ActiveRecord::RecordNotFound
       nil
     end
 
     def index(params)
-      [ Post.find(1), Post.find(2), Post.find(3) ]
+      Post.all
     end
 
     def new(params)
       Post.new
+    end
+
+    def edit(params)
+      Post.find(params['id'])
+    end
+
+    def create(params)
+      Post.create!(params['post'])
+    end
+
+    def update(params)
+      post = Post.find(params['id'])
+      post.attributes = params['post']
+      post.save
+      post
+    end
+
+    def destroy(params)
+      Post.find(params['id']).destroy
     end
   end
 end

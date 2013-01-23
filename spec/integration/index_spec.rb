@@ -1,16 +1,14 @@
 require 'spec_helper'
-require 'rack/test'
-require 'example_app'
 
-describe "Show a resource", integration: true do
-  context "when the resources exists" do
+describe "When listing all resources", integration: true do
+  context "and the resources exists" do
     it "returns the resources found" do
       get '/posts'
       last_response.status.should == 200
       last_response.body.should == '<h1>Post 1</h1><h1>Post 2</h1><h1>Post 3</h1>'
     end
 
-    context "when requesting JSON" do
+    context "and requesting JSON" do
       it "returns the output as a JSON array" do
         get '/posts.json'
         last_response.status.should == 200

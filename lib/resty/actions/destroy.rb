@@ -1,16 +1,16 @@
 module Resty
   module Actions
-    class Show < Base
+    class Destroy < Base
       def self.matches?(request)
-        request.get? && request.path =~ %r{/#{RESOURCE_ID}}
+        request.delete?
       end
 
       def status
-        resource ? 200 : 404
+        200
       end
 
       def resource
-        @resource ||= controller.constant.new.show(params)
+        @resource ||= controller.constant.new.destroy(params)
       end
 
       private

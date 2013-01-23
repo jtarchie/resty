@@ -1,19 +1,29 @@
 module Resty
   module Actions
-    class Show < Base
+    class Update < Base
       def self.matches?(request)
-        request.get? && request.path =~ %r{/#{RESOURCE_ID}}
+        request.put?
       end
 
       def status
-        resource ? 200 : 404
+        201
       end
 
       def resource
-        @resource ||= controller.constant.new.show(params)
+        @resource ||= controller.constant.new.update(params)
+      end
+
+      def headers
+        {
+          'Location' => "/#{controller_name}/#{resource.id}#{format}"
+        }
       end
 
       private
+
+      def format
+        request.path.dup.match(%r{(\.\w+)/?$})[1]
+      end
 
       def params
         @params ||= request.params.merge(
@@ -23,6 +33,10 @@ module Resty
 
       def resource_id
         @resource_id ||= request.path.dup.match(%r{/(#{RESOURCE_ID})/?})[1] rescue nil
+      end
+
+      def controller_name
+        controller.name
       end
     end
   end

@@ -1,8 +1,9 @@
 module Resty
   module Actions
-    class Show < Base
+    class Edit < Base
       def self.matches?(request)
-        request.get? && request.path =~ %r{/#{RESOURCE_ID}}
+        request.get? &&
+        request.path =~ %r{/#{RESOURCE_ID}/edit/?$}
       end
 
       def status
@@ -10,7 +11,7 @@ module Resty
       end
 
       def resource
-        @resource ||= controller.constant.new.show(params)
+        @resources ||= controller.constant.new.edit(params)
       end
 
       private
@@ -22,7 +23,7 @@ module Resty
       end
 
       def resource_id
-        @resource_id ||= request.path.dup.match(%r{/(#{RESOURCE_ID})/?})[1] rescue nil
+        @resource_id ||= request.path.dup.match(%r{/(#{RESOURCE_ID})/edit/?})[1] rescue nil
       end
     end
   end

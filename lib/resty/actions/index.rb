@@ -2,7 +2,9 @@ module Resty
   module Actions
     class Index < Base
       def self.matches?(request)
-        request.get?
+        request.get? &&
+        request.path !~ %r{/(edit|new)/?$} &&
+        request.path !~ %r{/#{RESOURCE_ID}}
       end
 
       def status
@@ -10,7 +12,7 @@ module Resty
       end
 
       def resource
-        @resources ||= controller.new.index(params)
+        @resources ||= controller.constant.new.index(params)
       end
 
       private

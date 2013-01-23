@@ -1,16 +1,14 @@
 require 'spec_helper'
-require 'rack/test'
-require 'example_app'
 
-describe "Show a resource", integration: true do
-  context "when the resource does not exists" do
+describe "When showing a resource", integration: true do
+  context "and the resource does not exists" do
     it "returns that its not found" do
       get '/posts/123'
       last_response.status.should == 404
     end
   end
 
-  context "when the resource exists" do
+  context "and the resource exists" do
     context "with different content types" do
       it "defaults to HTML" do
         get '/posts/1'
