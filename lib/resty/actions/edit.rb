@@ -3,7 +3,7 @@ module Resty
     class Edit < Base
       def self.matches?(request)
         request.get? &&
-        request.path =~ %r{/#{RESOURCE_ID}/edit/?$}
+        request.path =~ %r{/#{RESOURCE_ID}/edit(\.\w+)?/?$}
       end
 
       def status

@@ -6,6 +6,7 @@ module Resty
       end
 
       def body
+        return "" unless resource
         if resource.is_a?(Array)
           resource.map{|r| self.class.new(r).body }.join
         else

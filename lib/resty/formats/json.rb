@@ -6,7 +6,7 @@ module Resty
       end
 
       def body
-        resource.to_json
+        (resource || {}).to_json
       end
 
       def headers

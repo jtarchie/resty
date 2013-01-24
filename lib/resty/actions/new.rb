@@ -2,7 +2,7 @@ module Resty
   module Actions
     class New < Base
       def self.matches?(request)
-        request.get? && request.path =~ %r{/new/?$}
+        request.get? && request.path =~ %r{/new(\.\w+)?/?$}
       end
 
       def status

@@ -6,7 +6,7 @@ module Resty
       end
 
       def status
-        201
+        resource ? 201 : 404
       end
 
       def resource
@@ -14,6 +14,7 @@ module Resty
       end
 
       def headers
+        return {} unless resource
         {
           'Location' => "/#{controller_name}/#{resource.id}#{format}"
         }
