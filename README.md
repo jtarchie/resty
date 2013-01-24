@@ -1,12 +1,12 @@
 # Resty
 
-TODO: Write a gem description
+Resty is a web framework that forces restful conventions that are inspired by Rails Responders.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'resty'
+    gem 'resty', github: "jtarchie/resty"
 
 And then execute:
 
