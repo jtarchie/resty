@@ -24,7 +24,7 @@ module Resty
     def invoker
       Actions.detect do |action|
         action.matches?(self)
-      end
+      end || Actions::ServiceUnavailable
     end
 
     def formatter

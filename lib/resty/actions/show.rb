@@ -2,7 +2,7 @@ module Resty
   module Actions
     class Show < Base
       def self.matches?(request)
-        request.get? && request.path =~ %r{/#{RESOURCE_ID}}
+        request.get? && request.path =~ %r{/#{RESOURCE_ID}(\.\w+)?/?$}
       end
 
       def status

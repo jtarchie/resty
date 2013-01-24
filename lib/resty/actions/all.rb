@@ -5,3 +5,4 @@ require 'resty/actions/index'
 require 'resty/actions/new'
 require 'resty/actions/show'
 require 'resty/actions/update'
+

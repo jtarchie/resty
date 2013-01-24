@@ -24,4 +24,12 @@ describe "When request causes an error", integration: true do
       last_response.body.should == ""
     end
   end
+
+  context "because no action responds to the request" do
+    it "returns a service unavailable" do
+      get '/entries/1/asdfasdfasdfsadfasdft'
+      last_response.status.should == 501
+      last_response.body.should == ""
+    end
+  end
 end

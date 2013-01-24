@@ -1,4 +1,5 @@
 require 'resty/actions/base'
+require 'resty/actions/service_unavailable'
 
 module Resty
   module Actions
