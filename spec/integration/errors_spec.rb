@@ -32,4 +32,12 @@ describe "When request causes an error", integration: true do
       last_response.body.should == ""
     end
   end
+
+  context "because the request format does not exist" do
+    it "returns a empty body" do
+      get '/entries/1.format'
+      last_response.status.should == 404
+      last_response.body.should == ''
+    end
+  end
 end

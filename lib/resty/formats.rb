@@ -1,4 +1,5 @@
 require 'resty/formats/base'
+require 'resty/formats/unknown_content_type'
 
 module Resty
   module Formats

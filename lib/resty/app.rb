@@ -30,7 +30,7 @@ module Resty
     def formatter
       Formats.detect do |format|
         format.matches?(self)
-      end
+      end || Formats::UnknownContentType
     end
   end
 end
