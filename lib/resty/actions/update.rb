@@ -33,7 +33,7 @@ module Resty
       end
 
       def resource_id
-        @resource_id ||= request.path.dup.match(%r{/(#{RESOURCE_ID})/?})[1] rescue nil
+        @resource_id ||= Resource.find_by_request(request).id
       end
 
       def controller_name

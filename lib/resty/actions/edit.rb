@@ -3,7 +3,8 @@ module Resty
     class Edit < Base
       def self.matches?(request)
         request.get? &&
-        request.path =~ %r{/#{RESOURCE_ID}/edit(\.\w+)?/?$}
+        request.path =~ %r{\/edit(\.\w+)?/?$} &&
+        !Resource.find_by_request(request).id.nil?
       end
 
       def status
@@ -23,7 +24,7 @@ module Resty
       end
 
       def resource_id
-        @resource_id ||= request.path.dup.match(%r{/(#{RESOURCE_ID})/edit/?})[1] rescue nil
+        @resource_id ||= Resource.find_by_request(request).id
       end
     end
   end

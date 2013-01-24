@@ -6,6 +6,13 @@ describe "When showing a resource", integration: true do
       get '/posts/123'
       last_response.status.should == 404
     end
+
+    context "with a SHA resource id" do
+      it "returns that its not found" do
+        get '/posts/f0429391-ee0c-4c74-b9e1-3aa102bed145'
+        last_response.status.should == 404
+      end
+    end
   end
 
   context "and the resource exists" do

@@ -2,7 +2,10 @@ module Resty
   module Actions
     class Show < Base
       def self.matches?(request)
-        request.get? && request.path =~ %r{/#{RESOURCE_ID}(\.\w+)?/?$}
+        resource = Resource.find_by_request(request)
+        request.get? &&
+        !resource.id.nil? &&
+        request.path =~ %r{#{resource.id}(\.\w+)?/?$}
       end
 
       def status
@@ -22,7 +25,7 @@ module Resty
       end
 
       def resource_id
-        @resource_id ||= request.path.dup.match(%r{/(#{RESOURCE_ID})/?})[1] rescue nil
+        @resource_id ||= Resource.find_by_request(request).id
       end
     end
   end

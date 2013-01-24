@@ -14,7 +14,7 @@ module Resty
 
   Controller = Struct.new(:namespace, :controller_path) do
     def self.find_by_request(namespace, request)
-      controller_path = request.path.match(%r{/(#{CONTROLLER_PATH})})[1]
+      controller_path = request.path.match(%r{^/(\w+)})[1]
       new(namespace, controller_path)
     end
 

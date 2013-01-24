@@ -4,7 +4,7 @@ module Resty
       def self.matches?(request)
         request.get? &&
         request.path !~ %r{/(edit|new)(\.\w+)?/?$} &&
-        request.path !~ %r{/#{RESOURCE_ID}}
+        Resource.find_by_request(request).id.nil?
       end
 
       def status
