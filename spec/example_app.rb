@@ -19,37 +19,53 @@ module ExampleApp
   end
 
   class PostsController
-    def show(params)
-      Post.find(params['id'])
-    rescue ActiveRecord::RecordNotFound
-      nil
+    Action = Struct.new(:params)
+
+    class Show < Action
+      def resource
+          Post.find(params['id'])
+        rescue ActiveRecord::RecordNotFound
+          nil
+      end
     end
 
-    def index(params)
-      Post.all
+    class Index < Action
+      def resource
+        Post.all
+      end
     end
 
-    def new(params)
-      Post.new
+    class New < Action
+      def resource
+        Post.new
+      end
     end
 
-    def edit(params)
-      Post.find(params['id'])
+    class Edit < Action
+      def resource
+        Post.find(params['id'])
+      end
     end
 
-    def create(params)
-      Post.create!(params['post'])
+    class Create < Action
+      def resource
+        Post.create!(params['post'])
+      end
     end
 
-    def update(params)
-      post = Post.find(params['id'])
-      post.attributes = params['post']
-      post.save
-      post
+    class Update < Action
+      def resource
+        post = Post.find(params['id'])
+        post.attributes = params['post']
+        post.save
+        post
+      end
     end
 
-    def destroy(params)
-      Post.find(params['id']).destroy
+    class Destroy < Action
+      def resource
+        Post.find(params['id']).destroy
+      end
     end
   end
 end

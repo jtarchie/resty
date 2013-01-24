@@ -16,7 +16,7 @@ module Resty
       end
 
       def resource
-        @resource ||= controller.constant.new.create(params)
+        @resource ||= controller.constant::Create.new(params).resource
       end
 
       private

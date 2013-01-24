@@ -31,20 +31,26 @@ describe Resty::Actions::Index do
     let(:controller) { Resty::Controller.new(ExampleApp, "posts") }
     subject { described_class.new(controller, request) }
 
+    before do
+      example_app = double(:example_app)
+      ExampleApp::PostsController::Index.stub(:new).with({}).and_return(example_app)
+      example_app.stub(:resource).and_return(resources)
+    end
+
     context "with a valid request object" do
       let(:request) { double(:request, params: {}, path: "/path") }
 
       context "when the resources exist" do
         let(:resources) { [ double(:resource) ] }
 
-        before { ExampleApp::PostsController.any_instance.stub(:index).with({}).and_return(resources) }
         its(:status) { should == 200 }
         its(:resource) { should == resources }
         its(:headers) { should == {} }
       end
 
       context "when the resources does not exist" do
-        before { ExampleApp::PostsController.any_instance.stub(:index).with({}).and_return([]) }
+        let(:resources) { [] }
+
         its(:status) { should == 200 }
         its(:resource) { should == [] }
         its(:headers) { should == {} }
@@ -54,8 +60,7 @@ describe Resty::Actions::Index do
     context "with an invalid request object" do
       context "because the path has a resource id" do
         let(:request) { double(:request, params: {}, path: "/path/1") }
-
-        before { ExampleApp::PostsController.any_instance.stub(:index).with({}).and_return(nil) }
+        let(:resources) { nil }
 
         its(:status) { should == 404 }
         its(:resource) { should be_nil }

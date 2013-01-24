@@ -10,7 +10,7 @@ module Resty
       end
 
       def resource
-        @resource ||= controller.constant.new.show(params)
+        @resource ||= controller.constant::Show.new(params).resource
       end
 
       private

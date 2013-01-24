@@ -10,7 +10,7 @@ module Resty
       end
 
       def resource
-        @resource ||= controller.constant.new.update(params)
+        @resource ||= controller.constant::Update.new(params).resource
       end
 
       def headers

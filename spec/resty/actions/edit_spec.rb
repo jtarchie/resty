@@ -39,10 +39,15 @@ describe Resty::Actions::Edit do
     context "with a valid request object" do
       let(:request) { double(:request, params: {}, path: "/path/123/edit") }
 
+      before do
+        example_app = double(:example_app)
+        ExampleApp::PostsController::Edit.stub(:new).with({"id" => "123"}).and_return(example_app)
+        example_app.stub(:resource).and_return(resource)
+      end
+
       context "when the resource exists" do
         let(:resource) { double(:resource) }
 
-        before { ExampleApp::PostsController.any_instance.stub(:edit).with({"id" => "123"}).and_return(resource) }
         its(:status) { should == 200 }
         its(:resource) { should == resource }
         its(:headers) { should == {} }
@@ -51,7 +56,6 @@ describe Resty::Actions::Edit do
       context "when the resource does not exist" do
         let(:resource) { nil }
 
-        before { ExampleApp::PostsController.any_instance.stub(:edit).with({"id" => "123"}).and_return(resource) }
         its(:status) { should == 404 }
         its(:resource) { should be_nil }
         its(:headers) { should == {} }

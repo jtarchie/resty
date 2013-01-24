@@ -10,7 +10,7 @@ module Resty
       end
 
       def resource
-        @resource ||= controller.constant.new.destroy(params)
+        @resource ||= controller.constant::Destroy.new(params).resource
       end
 
       private
