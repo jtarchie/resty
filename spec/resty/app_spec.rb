@@ -5,5 +5,5 @@ describe Resty::App do
     Resty::App.new(ExampleApp).namespace.should == ExampleApp
   end
 
-  pending "tested with integration tests becauses mocking out Rack requests is hard"
+  pending "tested with integration tests because mocking out Rack requests is hard"
 end
