@@ -8,9 +8,9 @@ Gem::Specification.new do |gem|
   gem.version       = Resty::VERSION
   gem.authors       = ["JT Archie"]
   gem.email         = ["jtarchie@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.description   = %q{Resty is a web framework that forces restful conventions that are inspired by Rails Responders.}
+  gem.summary       = %q{Resty is a web framework that forces restful conventions that are inspired by Rails Responders.}
+  gem.homepage      = "https://github.com/jtarchie/resty"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
