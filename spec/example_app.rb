@@ -12,13 +12,17 @@ module ExampleApp
   end
 
   class Post < ActiveRecord::Base
+    validates :title, presence: true
     attr_accessible :id, :title, :body
     def to_s
       "Post #{id || "not persisted"}"
     end
   end
 
-  class PostsController
+  module UsersController
+  end
+
+  module PostsController
     Action = Struct.new(:params)
 
     class Show < Action
@@ -49,7 +53,8 @@ module ExampleApp
 
     class Create < Action
       def resource
-        Post.create!(params['post'])
+        post = Post.create(params['post'])
+        post.persisted? ? post : nil
       end
     end
 

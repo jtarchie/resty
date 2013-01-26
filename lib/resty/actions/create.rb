@@ -2,11 +2,13 @@ module Resty
   module Actions
     class Create < Base
       def self.matches?(request)
-        request.post?
+        request.post? &&
+        Controller.exists_on_request?(request)
       end
 
       def status
-        resource ? 201 : 404
+        return 404 if controller.constant == NullController
+        resource ? 201 : 422
       end
 
       def headers
@@ -17,7 +19,7 @@ module Resty
       end
 
       def resource
-        @resource ||= controller.constant::Create.new(params).resource
+        @resource ||= action.new(params).resource
       end
 
       private

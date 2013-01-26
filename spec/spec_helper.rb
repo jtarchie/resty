@@ -16,9 +16,9 @@ RSpec.configure do |config|
   config.order = 'random'
 
   config.before do
-    ExampleApp::Post.create(id: 1)
-    ExampleApp::Post.create(id: 2)
-    ExampleApp::Post.create(id: 3)
+    ExampleApp::Post.create(id: 1, title: "Title")
+    ExampleApp::Post.create(id: 2, title: "Title")
+    ExampleApp::Post.create(id: 3, title: "Title")
   end
 
   config.after do

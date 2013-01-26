@@ -13,9 +13,13 @@ module Resty
   end
 
   Controller = Struct.new(:namespace, :controller_path) do
-    def self.find_by_request(namespace, request)
+    def self.find_by_namespace_and_request(namespace, request)
       controller_path = request.path.match(%r{^/(\w+)})[1]
       new(namespace, controller_path)
+    end
+
+    def self.exists_on_request?(request)
+      request.path.match(%r{^/(\w+)(\.\w+)?/?$})[1] rescue nil
     end
 
     def constant

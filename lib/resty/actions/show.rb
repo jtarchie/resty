@@ -5,7 +5,7 @@ module Resty
         resource = Resource.find_by_request(request)
         request.get? &&
         !resource.id.nil? &&
-        request.path =~ %r{#{resource.id}(\.\w+)?/?$}
+        request.path =~ %r{/#{resource.id}(\.\w+)?/?$}
       end
 
       def status
@@ -13,7 +13,7 @@ module Resty
       end
 
       def resource
-        @resource ||= controller.constant::Show.new(params).resource
+        @resource ||= action.new(params).resource
       end
 
       private

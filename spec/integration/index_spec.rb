@@ -13,9 +13,9 @@ describe "When listing all resources", integration: true do
         get '/posts.json'
         last_response.status.should == 200
         JSON.parse(last_response.body).should == [
-          {"post"=>{"body"=>nil, "id"=>1, "title"=>nil}},
-          {"post"=>{"body"=>nil, "id"=>2, "title"=>nil}},
-          {"post"=>{"body"=>nil, "id"=>3, "title"=>nil}}
+          {"post"=>{"body"=>nil, "id"=>1, "title"=>"Title"}},
+          {"post"=>{"body"=>nil, "id"=>2, "title"=>"Title"}},
+          {"post"=>{"body"=>nil, "id"=>3, "title"=>"Title"}}
         ]
       end
     end

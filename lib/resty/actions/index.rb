@@ -12,7 +12,7 @@ module Resty
       end
 
       def resource
-        @resources ||= controller.constant::Index.new(params).resource
+        @resources ||= action.new(params).resource
       end
 
       private

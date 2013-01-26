@@ -33,7 +33,7 @@ describe "When showing a resource", integration: true do
             "post"=>{
               "body"=>nil,
               "id"=>1,
-              "title"=>nil
+              "title"=>"Title"
             }
           }
         end

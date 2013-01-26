@@ -9,10 +9,14 @@ module Resty
     def call(env)
       request = Request.new(env)
 
-      controller = Controller.find_by_request(namespace, request)
+      controller = Controller.find_by_namespace_and_request(namespace, request)
       action = request.invoker.new(controller, request)
       output = request.formatter.new(action.resource)
-      [
+    rescue NameError
+      action = Actions::ServiceUnavailable.new(controller, request)
+      output = request.formatter.new(action.resource)
+    ensure
+      return [
         action.status,
         action.headers.merge(output.headers),
         output.body
